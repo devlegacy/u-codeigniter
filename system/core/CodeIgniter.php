@@ -182,7 +182,8 @@ if ( ! is_php('5.4'))
 			log_message('error', 'Could not find the specified $config[\'composer_autoload\'] path: '.$composer_autoload);
 		}
 	}
-
+  $dotenv = new Dotenv\Dotenv(realpath(__DIR__.'/../../'));
+  $dotenv->load();
 /*
  * ------------------------------------------------------
  *  Start the timer... tick tock tick tock...
