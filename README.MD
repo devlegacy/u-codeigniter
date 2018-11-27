@@ -1,5 +1,8 @@
-sudo vim /etc/apache2/sites-available/u-codeigniter.conf
+# Configuraciones
+
+```apache
 <VirtualHost *:80>
+        # sudo vim /etc/apache2/sites-available/u-codeigniter.conf - ubuntu
         # The ServerName directive sets the request scheme, hostname and port that
         # the server uses to identify itself. This is used when creating
         # redirection URLs. In the context of virtual hosts, the ServerName
@@ -44,3 +47,20 @@ sudo vim /etc/apache2/sites-available/u-codeigniter.conf
                 #SetHandler "proxy:fcgi://127.0.0.1:9000"
         </FilesMatch>
 </VirtualHost>
+
+```
+
+```apache
+<VirtualHost *:80>
+        # C:/xampp7/htdocs/u-codeigniter - windows
+        ServerAdmin samuel@devexteam.com
+        DocumentRoot "C:/xampp7/htdocs/u-codeigniter"
+
+        ServerName u-codeigniter.localhost
+        ServerAlias www.u-codeigniter.localhost
+
+        ErrorLog "C:/xampp7/htdocs/u-codeigniter/application/logs/error.log"
+        CustomLog "C:/xampp7/htdocs/u-codeigniter/application/logs/access.log" combined
+</VirtualHost>
+
+```

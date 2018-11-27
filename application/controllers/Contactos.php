@@ -4,10 +4,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Contactos extends CI_Controller
 {
     private $validationRules = [];
-    public function __construct() {
-      parent::__construct();
-      $this->load->model('contact');
-      $this->validationRules = [
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('contact');
+        $this->validationRules = [
         [
           'field' => 'name',
           'label' => 'Nombre',
@@ -36,31 +37,56 @@ class Contactos extends CI_Controller
       ];
     }
 
-    public function index($id)
+    public function index($id = null)
     {
         $data = [
           'title' => 'Listar contactos',
           'name' => 'Samuel',
-          'contacts' => $this->contact->all(),
+          'contacts' => $id ? $this->contact->get($id) : $this->contact->all(),
+          'contents' => ['contactos/index'],
         ];
-        $this->load->view('contactos/index', $data);
+        $this->load->view('templates/main', $data);
     }
 
-    public function create() {
+
+    public function create()
+    {
+        $data = [
+          'title' => 'Crear contactos',
+          'contents' => ['contactos/create'],
+        ];
+        $this->insert();
+        $this->load->view('templates/main', $data);
+    }
+
+    public function edit($id = null) {
+      $contact = $this->contact->get($id);
+      $contact = array_pop($contact);
       $data = [
-        'title' => 'Crear contactos',
+        'title' => 'Editar contacto '. ($contact->name ? $contact->name : ''),
+        'contact' => $contact,
+        'contents' => ['contactos/edit'],
       ];
-      $this->insert();
-      $this->load->view('contactos/create', $data);
+      $this->update();
+      $this->load->view('templates/main', $data);
     }
 
-    private function insert() {
+    private function insert()
+    {
+        if ($this->input->post()) {
+            $this->form_validation->set_rules($this->validationRules);
+            if ($this->form_validation->run()) {
+                $id = $this->contact->create($this->input->post());
+                $this->session->set_flashdata('new-contact', $id);
+                redirect(base_url().'contactos/'.$id);
+            }
+        }
+    }
+
+    private function update() {
       if ($this->input->post()) {
-          $this->form_validation->set_rules($this->validationRules);
-          if ($this->form_validation->run()) {
-              $this->session->set_flashdata('insert', $this->contact->create($this->input->post()));
-              redirect(base_url().'contactos/'.$id);
-          }
+        var_dump($this->input->post());
+        die();
       }
     }
 }
