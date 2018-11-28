@@ -37,7 +37,7 @@ class Contactos extends CI_Controller
       ];
     }
 
-    public function index($id = null)
+    public function index(int $id = null)
     {
         $data = [
           'title' => 'Listar contactos',
@@ -47,7 +47,6 @@ class Contactos extends CI_Controller
         ];
         $this->load->view('templates/main', $data);
     }
-
 
     public function create()
     {
@@ -59,16 +58,28 @@ class Contactos extends CI_Controller
         $this->load->view('templates/main', $data);
     }
 
-    public function edit($id = null) {
-      $contact = $this->contact->get($id);
-      $contact = array_pop($contact);
-      $data = [
-        'title' => 'Editar contacto '. ($contact->name ? $contact->name : ''),
-        'contact' => $contact,
-        'contents' => ['contactos/edit'],
-      ];
-      $this->update();
-      $this->load->view('templates/main', $data);
+    public function edit(int $id = null)
+    {
+        $contact = $this->contact->get($id);
+        $contact = array_pop($contact);
+        if (!$contact) {
+            show_404();
+        }
+        $data = [
+          'title' => 'Editar contacto '. ($contact->name ? $contact->name : ''),
+          'contact' => $contact,
+          'contents' => ['contactos/edit'],
+
+        ];
+
+        $this->update();
+        $this->load->view('templates/main', $data);
+    }
+
+    public function delete(int $id = null)
+    {
+        $this->contact->delete($id);
+        redirect(base_url().'contactos');
     }
 
     private function insert()
@@ -83,10 +94,38 @@ class Contactos extends CI_Controller
         }
     }
 
-    private function update() {
-      if ($this->input->post()) {
-        var_dump($this->input->post());
-        die();
-      }
+    private function update()
+    {
+        if ($this->input->post()) {
+            $this->validationRules[1] = [
+              'field' => 'email',
+              'label' => 'Correo electrónico',
+              'rules' => 'trim|required|valid_email|callback_email_update_check[contacts.email]',
+            ];
+            $this->form_validation->set_rules($this->validationRules);
+            if ($this->form_validation->run()) {
+                $id = $this->contact->update($this->input->post());
+                $this->session->set_flashdata('edit-contact', $id);
+                redirect(base_url().'contactos/'.$id);
+            }
+        }
+    }
+
+    public function email_update_check($str, $field)
+    {
+        list($table, $field) = explode('.', $field);
+        $data = $this->contact->db->get_where($table, [$field => $str])->result();
+        $rows = count($data);
+        if ($rows === 1) {
+            $data = array_pop($data);
+            if ($data->id !== $this->input->post('id')) {
+                $this->form_validation->set_message('email_update_check', 'El {field} debe ser un registro único');
+                return false;
+            }
+        } elseif ($rows > 1) {
+            $this->form_validation->set_message('email_update_check', 'El {field} debe ser un registro único');
+            return false;
+        }
+        return true;
     }
 }
