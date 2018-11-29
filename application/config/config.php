@@ -23,12 +23,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-function getBaseUrlByContext ($server) {
-  if ($server === 'localhost' || $server === '192.168.0.7' || $server === '192.168.0.10' || $server === '192.168.1.250') {
-    return 'http://${server}/u-codeigniter/';
-  } else if ($server === 'u-codeigniter.localhost') {
-    return 'http://u-codeigniter.localhost/';
-  }
+function getBaseUrlByContext($server)
+{
+    if ($server === 'localhost' || $server === '192.168.0.7' || $server === '192.168.0.10' || $server === '192.168.1.250') {
+        return 'http://${server}/u-codeigniter/';
+    } elseif ($server === 'u-codeigniter.localhost') {
+        return 'http://u-codeigniter.localhost/';
+    }
 };
 
 $config['base_url'] = getBaseUrlByContext($_SERVER['SERVER_NAME']);
@@ -484,7 +485,7 @@ $config['csrf_exclude_uris'] = array();
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = false;
+$config['compress_output'] = true;
 
 /*
 |--------------------------------------------------------------------------

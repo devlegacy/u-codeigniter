@@ -17,7 +17,7 @@ use Carbon\Carbon;
   <div class="alert alert-primary" role="alert">
     Tienes <strong><?= count($contacts) ?> contactos(s)</strong>
   </div>
-  <table class="table table-striped table-hover table-responsive">
+  <table class="table table-striped table-hover table-responsive-lg">
     <caption>Lista de contactos</caption>
     <thead>
       <tr>
