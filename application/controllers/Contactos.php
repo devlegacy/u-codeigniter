@@ -9,32 +9,32 @@ class Contactos extends CI_Controller
         parent::__construct();
         $this->load->model('contact');
         $this->validationRules = [
-        [
-          'field' => 'name',
-          'label' => 'Nombre',
-          'rules' => 'trim|required|min_length[3]'
-        ],
-        [
-          'field' => 'email',
-          'label' => 'Correo electrónico',
-          'rules' => 'trim|required|valid_email|is_unique[contacts.email]',
-        ],
-        [
-          'field' => 'phone',
-          'label' => 'Teléfono',
-          'rules' => 'trim|required'
-        ],
-        [
-          'field' => 'birthdate',
-          'label' => 'Fecha de nacimiento',
-          'rules' => 'trim|required'
-        ],
-        [
-          'field' => 'status',
-          'label' => 'Estado',
-          'rules' => 'trim|required|in_list[0,1]'
-        ]
-      ];
+          [
+            'field' => 'name',
+            'label' => 'Nombre',
+            'rules' => 'trim|required|min_length[3]'
+          ],
+          [
+            'field' => 'email',
+            'label' => 'Correo electrónico',
+            'rules' => 'trim|required|valid_email|is_unique[contacts.email]',
+          ],
+          [
+            'field' => 'phone',
+            'label' => 'Teléfono',
+            'rules' => 'trim|required'
+          ],
+          [
+            'field' => 'birthdate',
+            'label' => 'Fecha de nacimiento',
+            'rules' => 'trim|required'
+          ],
+          [
+            'field' => 'status',
+            'label' => 'Estado',
+            'rules' => 'trim|required|in_list[0,1]'
+          ]
+        ];
     }
 
     public function index(int $id = null)
@@ -42,7 +42,7 @@ class Contactos extends CI_Controller
         $data = [
           'title' => 'Listar contactos',
           'name' => 'Samuel',
-          'contacts' => $id ? $this->contact->get($id) : $this->contact->all(),
+          'contacts' => $id ? $this->contact->all()->where(['id' => $id])->get()->result() : $this->contact->all()->get()->result(),
           'contents' => ['contactos/index'],
         ];
         $this->load->view('templates/main', $data);
@@ -127,5 +127,19 @@ class Contactos extends CI_Controller
             return false;
         }
         return true;
+    }
+
+    /**
+     * To test
+     */
+    public function change_db()
+    {
+        if (!$this->session->userdata('db')) {
+            $this->session->set_userdata('db', 'grupo_2');
+        } else {
+            $this->session->set_userdata('db', ($this->session->userdata('db') == 'default' ? 'grupo_2' : 'default'));
+        }
+        var_dump($this->session->userdata('db'));
+        var_dump($this->session->db);
     }
 }

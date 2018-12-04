@@ -19,6 +19,7 @@ class Contact extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->load->database($this->session->userdata('db') ?? 'default', false);
     }
 
     public function update($data)

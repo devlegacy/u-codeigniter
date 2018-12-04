@@ -6,24 +6,31 @@ trait Helper
 {
     public function all()
     {
-        return $this->db->get($this->table)->result();
+        return $this->from();
     }
 
-    public function get($id)
+    public function from()
     {
-        return $this->db->get_where($this->table, ['id' => $id])->result();
-    }
-
-    public function select($select = "") {
-      $select = implode(',',$this->attributes).($select ? ",{$select}":'');
-      $this->db->select($select);
-      $this->db->from($this->table);
-      return $this->db;
+        $this->db->from($this->contact->getTable());
+        return $this->db;
     }
 
     public function create($data)
     {
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
+    }
+
+    public function select($select = "")
+    {
+        $select = implode(',', $this->attributes).($select ? ",{$select}":'');
+        $this->db->select($select);
+        $this->db->from($this->table);
+        return $this->db;
+    }
+
+    public function getTable()
+    {
+        return $this->table;
     }
 }

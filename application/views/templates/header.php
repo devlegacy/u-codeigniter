@@ -10,7 +10,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <!-- Navbar content -->
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="<?= base_url() ?>">Mis contactos</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,5 +31,6 @@
       </ul>
     </div>
   </nav>
-  <div class="container">
-    <h1><?= $title ? $title : 'Default' ?></h1>
+  <main>
+    <div class="container">
+      <h1><?= $title ? $title : 'Default' ?></h1>
