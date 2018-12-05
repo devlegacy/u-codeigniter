@@ -56,3 +56,7 @@ $route['translate_uri_dashes'] = false;
 $route['contactos/(:num)'] = 'contactos/index/$1';
 $route['contactos/(:num)/edit'] = 'contactos/edit/$1';
 $route['contactos/(:num)/delete'] = 'contactos/delete/$1';
+
+// API
+
+$route['api/contactos/(:num)'] = 'api/contactos/index/$1';

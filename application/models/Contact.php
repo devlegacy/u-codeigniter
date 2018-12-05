@@ -19,6 +19,9 @@ class Contact extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        /**
+         * Manage multiconection to databases
+         */
         $this->load->database($this->session->userdata('db') ?? 'default', false);
     }
 

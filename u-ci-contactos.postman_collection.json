@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "c2acf77b-6c5a-46cf-968e-6f9f6f04df0e",
+		"name": "u-ci-contactos",
+		"description": "Codeginiter - aplicación de contactos.\nCurso de udemy.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "contactos",
+					"item": [
+						{
+							"name": "Show all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}api/contactos/",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"contactos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}api/contactos/6",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"contactos",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Usuario nuevo",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "userdemo@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "9982121212",
+											"type": "text"
+										},
+										{
+											"key": "birthdate",
+											"value": "1993-10-10",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/contactos/store",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"contactos",
+										"store"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f1e39bba-ba84-4567-b602-cb6d85079ef2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d7a3f49d-8f0e-48cc-ae1e-5a43edf1e9fa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0d9168bf-2eb2-4c1f-837a-be34983a3d6b",
+			"key": "base_url",
+			"value": "http://u-codeigniter.localhost/",
+			"type": "string"
+		}
+	]
+}

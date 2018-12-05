@@ -42,7 +42,7 @@ class Contactos extends CI_Controller
         $data = [
           'title' => 'Listar contactos',
           'name' => 'Samuel',
-          'contacts' => $id ? $this->contact->all()->where(['id' => $id])->get()->result() : $this->contact->all()->get()->result(),
+          'contacts' => $id ? $this->contact->find($id) : $this->contact->all(),
           'contents' => ['contactos/index'],
         ];
         $this->load->view('templates/main', $data);
@@ -54,7 +54,7 @@ class Contactos extends CI_Controller
           'title' => 'Crear contactos',
           'contents' => ['contactos/create'],
         ];
-        $this->insert();
+        $this->store();
         $this->load->view('templates/main', $data);
     }
 
@@ -82,12 +82,12 @@ class Contactos extends CI_Controller
         redirect(base_url().'contactos');
     }
 
-    private function insert()
+    private function store()
     {
         if ($this->input->post()) {
             $this->form_validation->set_rules($this->validationRules);
             if ($this->form_validation->run()) {
-                $id = $this->contact->create($this->input->post());
+                $id = $this->contact->store($this->input->post());
                 $this->session->set_flashdata('new-contact', $id);
                 redirect(base_url().'contactos/'.$id);
             }
