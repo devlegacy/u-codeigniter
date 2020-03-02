@@ -29,7 +29,10 @@ function getBaseUrlByContext($server)
         return 'http://${server}/u-codeigniter/';
     } elseif ($server === 'u-codeigniter.localhost') {
         return 'http://u-codeigniter.localhost/';
+    } elseif ($server === 'samuel.devexteam.com') {
+    	return 'https://samuel.devexteam.com/';
     }
+    return 'https://samuel.devexteam.com';
 };
 
 $config['base_url'] = getBaseUrlByContext($_SERVER['SERVER_NAME']);

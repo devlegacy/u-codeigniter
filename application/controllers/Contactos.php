@@ -60,7 +60,7 @@ class Contactos extends CI_Controller
 
     public function edit(int $id = null)
     {
-        $contact = $this->contact->get($id);
+        $contact = $this->contact->find($id);
         $contact = array_pop($contact);
         if (!$contact) {
             show_404();
